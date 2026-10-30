@@ -150,6 +150,7 @@ LOCAL_APPS = [
     "unpod.documents",
     "unpod.metrics",
     "unpod.dynamic_forms",
+    "unpod.email_journey",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -498,7 +499,45 @@ CORS_EXPOSE_HEADERS = [
 CRON_CLASSES = [
     "unpod.thread.cron.CreateCronPost",
     "unpod.core_components.cron.EventTriggerCron",
+    "unpod.email_journey.cron.EmailJourneyCronJob",
 ]
+
+# Onboarding email journey (UP-61)
+# ------------------------------------------------------------------------------
+# Kill switch: sends emails to real users, so it stays OFF unless enabled per env.
+EMAIL_JOURNEY_ENABLED = env.bool("EMAIL_JOURNEY_ENABLED", default=False)
+EMAIL_JOURNEY_PRODUCT_IDS = env.list("EMAIL_JOURNEY_PRODUCT_IDS", default=["unpod.ai"])
+EMAIL_JOURNEY_MAX_PER_24H = env.int("EMAIL_JOURNEY_MAX_PER_24H", default=1)
+EMAIL_JOURNEY_MAX_PER_7D = env.int("EMAIL_JOURNEY_MAX_PER_7D", default=3)
+EMAIL_JOURNEY_MAX_SEND_ATTEMPTS = env.int("EMAIL_JOURNEY_MAX_SEND_ATTEMPTS", default=3)
+EMAIL_JOURNEY_MAX_AGE_DAYS = env.int("EMAIL_JOURNEY_MAX_AGE_DAYS", default=63)
+EMAIL_JOURNEY_KYC_REMINDER_DELAY_HOURS = env.int(
+    "EMAIL_JOURNEY_KYC_REMINDER_DELAY_HOURS", default=24
+)
+EMAIL_JOURNEY_KYC_REQUIRED_DOCS = env.list(
+    "EMAIL_JOURNEY_KYC_REQUIRED_DOCS",
+    default=["GST_CERTIFICATE", "COMPANY_PAN", "INCORPORATION_CERTIFICATE", "ID_PROOF"],
+)
+EMAIL_JOURNEY_PROMO_APPROVED = env.bool("EMAIL_JOURNEY_PROMO_APPROVED", default=False)
+EMAIL_JOURNEY_WELCOME_CREDITS = env("EMAIL_JOURNEY_WELCOME_CREDITS", default="5")
+EMAIL_JOURNEY_SENDER_NAME = env("EMAIL_JOURNEY_SENDER_NAME", default="Team Unpod AI")
+EMAIL_JOURNEY_SUPPORTED_LANGUAGES = env(
+    "EMAIL_JOURNEY_SUPPORTED_LANGUAGES", default="English, Hindi and more"
+)
+EMAIL_JOURNEY_AGENT_BUILDER_NAME = env("EMAIL_JOURNEY_AGENT_BUILDER_NAME", default="AI Studio")
+EMAIL_JOURNEY_AUTO_BUILD_FEATURE_NAME = env(
+    "EMAIL_JOURNEY_AUTO_BUILD_FEATURE_NAME", default="Auto Build"
+)
+EMAIL_JOURNEY_KYC_COMPLETION_TIME = env(
+    "EMAIL_JOURNEY_KYC_COMPLETION_TIME", default="a few minutes"
+)
+EMAIL_JOURNEY_KYC_PATH = env("EMAIL_JOURNEY_KYC_PATH", default="/org/settings/")
+EMAIL_JOURNEY_SALES_URL = env("EMAIL_JOURNEY_SALES_URL", default="https://unpod.ai/contact-us")
+EMAIL_JOURNEY_PLAYGROUND_URL = env(
+    "EMAIL_JOURNEY_PLAYGROUND_URL", default="https://playground.unpod.ai/playground"
+)
+# Empty -> the Day 21 workflows email is held until Product supplies a link.
+EMAIL_JOURNEY_WORKFLOW_TUTORIAL_URL = env("EMAIL_JOURNEY_WORKFLOW_TUTORIAL_URL", default="")
 
 # AWS S3 Configuration
 # SECURITY: Credentials loaded from environment variables

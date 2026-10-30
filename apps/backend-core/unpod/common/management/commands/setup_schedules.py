@@ -29,6 +29,14 @@ class Command(BaseCommand):
                 "minutes": 1,
                 "repeats": -1,
             },
+            # Email Journey - onboarding lifecycle emails (every 60 minutes)
+            {
+                "name": "email_journey_cron",
+                "func": "unpod.email_journey.tasks.email_journey_cron",
+                "schedule_type": Schedule.MINUTES,
+                "minutes": 60,
+                "repeats": -1,
+            },
         ]
 
         created_count = 0

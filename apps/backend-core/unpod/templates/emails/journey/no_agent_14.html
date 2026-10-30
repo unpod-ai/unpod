@@ -1,0 +1,9 @@
+{% extends "emails/journey/_layout.html" %}
+
+{% block body %}
+<p>You signed up for {{APP_NAME}} two weeks ago, but you haven't built your first agent yet.</p>
+
+<p>Try the Playground: talk to a sample agent in your browser and see how it handles real conversations.
+When you are ready, {{auto_build_feature_name}} can set up an agent for you from a short description
+of your business.</p>
+{% endblock body %}
