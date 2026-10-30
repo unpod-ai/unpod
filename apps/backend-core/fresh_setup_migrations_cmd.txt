@@ -1,4 +1,4 @@
-python manage.py makemigrations users core_components space roles dynamic_forms documents knowledge_base metrics notification thread
+python manage.py makemigrations users core_components space roles dynamic_forms documents knowledge_base metrics notification thread email_journey
 python manage.py migrate
 python manage.py createsuperuser --username admin --email admin@example.com
 password admin123

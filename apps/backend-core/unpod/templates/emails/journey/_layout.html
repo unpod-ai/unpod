@@ -1,0 +1,19 @@
+{% extends "emails/base.html" %}
+
+{% block title %}{{APP_NAME}}{% endblock title %}
+
+{% block content %}
+<p>Hi {{first_name}},</p>
+
+{% block body %}{% endblock body %}
+
+{% if cta_url %}{% include "emails/journey/_cta.html" %}{% endif %}
+
+<p>Cheers,<br>
+{{sender_name}}</p>
+
+<p style="font-size: 12px; color: #888888; margin-top: 30px;">
+  You are receiving this because you signed up for {{APP_NAME}}.
+  <a href="{{unsubscribe_url}}" style="color: #888888;">Unsubscribe from onboarding emails</a>
+</p>
+{% endblock content %}

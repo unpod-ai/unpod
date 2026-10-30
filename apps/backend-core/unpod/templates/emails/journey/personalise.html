@@ -1,0 +1,12 @@
+{% extends "emails/journey/_layout.html" %}
+
+{% block body %}
+<p>Your agent is created. Now make it sound like your business:</p>
+<ul>
+  <li><strong>Custom variables</strong>: greet each customer by name and use their details in the conversation.</li>
+  <li><strong>First message</strong>: choose exactly how your agent opens every call.</li>
+  <li><strong>Knowledge base</strong>: upload your documents so your agent answers with your own information.</li>
+</ul>
+
+<p>Your agent can talk to your customers in {{supported_languages}}.</p>
+{% endblock body %}

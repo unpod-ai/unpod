@@ -22,7 +22,9 @@ from unpod.common.enum import (
 )
 from unpod.common.helpers.global_helper import (
     format_validation_errors,
+    get_product_id,
 )
+from unpod.email_journey.services import start_journey
 from unpod.notification.models import Notification
 from unpod.notification.services import createNotification
 
@@ -191,6 +193,12 @@ class SpaceOrganizationViewSet(viewsets.GenericViewSet):
             if hasattr(user, "userbasicdetail_user"):
                 user.userbasicdetail_user.active_space = space_obj
                 user.userbasicdetail_user.save()
+
+        # Onboarding email journey: best-effort, must never fail org creation.
+        try:
+            start_journey(organization, user, get_product_id())
+        except Exception:
+            logger.exception("email_journey: start failed for org %s", organization.id)
 
         data = SpaceOrganizationSerializers(organization).data
         return Response(

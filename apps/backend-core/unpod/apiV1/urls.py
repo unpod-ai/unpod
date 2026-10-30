@@ -14,4 +14,5 @@ urlpatterns = [
     path('documents/', include('unpod.documents.urls'), name="documents"),
     path('metrics/', include('unpod.metrics.urls'), name="metrics"),
     path('dynamic-forms/', include('unpod.dynamic_forms.urls'), name="dynamic_forms_base"),
+    path('email-journey/', include('unpod.email_journey.urls'), name="email_journey"),
 ]
